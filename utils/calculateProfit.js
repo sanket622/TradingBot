@@ -10,7 +10,7 @@ const calculateProfit = (trades) => {
         }
     });
 
-    return profit - totalCost;
+    return profit - totalCost
 };
 
 export default calculateProfit;
