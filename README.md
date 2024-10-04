@@ -27,29 +27,30 @@ This endpoint triggers the trading bot to evaluate stock prices and execute buy/
   "trades": [
     {
       "action": "BUY",
-      "stock": "AAPL",
+      "stock": "RAGO",
       "price": 148,
       "amount": 10,
-      "timestamp": "2024-10-04T11:42:35.945Z"
+      "timestamp": "2024-10-04T12:30:08.821Z"
     },
     {
       "action": "SELL",
-      "stock": "GOOGL",
-      "price": 2850,
+      "stock": "GLEN",
+      "price": 3000,
       "amount": 3,
-      "timestamp": "2024-10-04T11:42:35.946Z"
+      "timestamp": "2024-10-04T12:30:08.822Z"
     }
   ],
-  "balance": 17070,
-  "profit": 7070,
+  "initialBalance": 10000,
+  "finalBalance": 17520,
+  "profit": 7520,
   "positions": {
-    "AAPL": 10
+    "RAGO": 10
   },
   "tradeHistory": [
     [
       {
         "action": "BUY",
-        "stock": "AAPL",
+        "stock": "RAGO",
         "price": 148,
         "amount": 10
       }
@@ -57,8 +58,8 @@ This endpoint triggers the trading bot to evaluate stock prices and execute buy/
     [
       {
         "action": "SELL",
-        "stock": "GOOGL",
-        "price": 2850,
+        "stock": "GLEN",
+        "price": 3000,
         "amount": 3
       }
     ]

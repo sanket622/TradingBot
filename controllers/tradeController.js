@@ -12,10 +12,9 @@ function tradingBot(req, res) {
         const latestPrice = prices[prices.length - 1];
         const previousPrice = prices[prices.length - 2];
 
-        console.log(`Latest price for ${stock}: ${latestPrice}, Previous price: ${previousPrice}`);
+        const priceChangePercentage = ((latestPrice - previousPrice) / previousPrice) * 100;
 
-        // Buy AAPL at price 148
-        if (stock === 'RAGO' && latestPrice === 148) {
+        if (stock === 'RAGO' && priceChangePercentage <= -2) {
             const amountToBuy = 10;  // Buy 10 stocks of AAPL
             const totalCost = amountToBuy * latestPrice;
 
@@ -31,7 +30,7 @@ function tradingBot(req, res) {
         }
 
         // Sell GOOGL at price 2850
-        if (stock === 'GLEN' && latestPrice === 2850) {
+        if (stock === 'GLEN' && priceChangePercentage >= 3) {
             const amountToSell = 3;  // Sell 3 stocks of GOOGL
             updateBalance(amountToSell * latestPrice);
             updatePosition('GLEN', amountToSell, 'SELL');
