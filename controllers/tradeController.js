@@ -1,11 +1,11 @@
-const { addTrade, getTradeHistory, getBalance, updateBalance, updatePosition, getPositions } = require('../models/tradeModel');
-const getMockStockData = require('../mockData');
-const calculateProfit = require('../utils/calculateProfit'); // Adjust the path as necessary
+import { addTrade, getTradeHistory, getBalance, updateBalance, updatePosition, getPositions } from '../models/tradeModel.js';
+import getMockStockData from '../mockData.js';
+import calculateProfit from '../utils/calculateProfit.js';
 
-function tradingBot(req, res) {
+const tradingBot = (req, res) => {
     const stockData = getMockStockData();
     const trades = [];
-    const initialBalance = getBalance(); // Store initial balance before any trades
+    const initialBalance = getBalance();
 
     for (const stock in stockData) {
         const prices = stockData[stock];
@@ -15,23 +15,22 @@ function tradingBot(req, res) {
         const priceChangePercentage = ((latestPrice - previousPrice) / previousPrice) * 100;
 
         if (stock === 'RAGO' && priceChangePercentage <= -2) {
-            const amountToBuy = 10;  // Buy 10 stocks of AAPL
+            const amountToBuy = 10;
             const totalCost = amountToBuy * latestPrice;
 
-            if (getBalance() >= totalCost) {  // Ensure there is enough balance
+            if (getBalance() >= totalCost) {
                 updateBalance(-totalCost);
                 updatePosition('RAGO', amountToBuy, 'BUY');
                 const trade = addTrade('BUY', 'RAGO', latestPrice, amountToBuy);
                 trades.push(trade);
                 console.log(`Bought ${amountToBuy} of RAGO at ${latestPrice}`);
             } else {
-                console.log(`Insufficient balance to buy AAPL`);
+                console.log(`Insufficient balance to buy RAGO`);
             }
         }
 
-        // Sell GOOGL at price 2850
         if (stock === 'GLEN' && priceChangePercentage >= 3) {
-            const amountToSell = 3;  // Sell 3 stocks of GOOGL
+            const amountToSell = 3;  
             updateBalance(amountToSell * latestPrice);
             updatePosition('GLEN', amountToSell, 'SELL');
             const trade = addTrade('SELL', 'GLEN', latestPrice, amountToSell);
@@ -40,22 +39,22 @@ function tradingBot(req, res) {
         }
     }
 
-    const finalBalance = getBalance(); // Get final balance after trades
-    const profit = calculateProfit(trades); // Calculate profit based on trades
+    const finalBalance = getBalance();
+    const profit = calculateProfit(trades);
 
     res.json({
         trades,
-        initialBalance:initialBalance,
-        finalBalance: finalBalance,
-        profit, // Include the profit in the response
+        initialBalance,
+        finalBalance,
+        profit,
         positions: getPositions(),
-        tradeHistory: getTradeHistory().map(trade => [{
+        tradeHistory: getTradeHistory().map(trade => ({
             action: trade.action,
             stock: trade.stock,
             price: trade.price,
             amount: trade.amount
-        }])
+        }))
     });
-}
+};
 
-module.exports = { tradingBot };
+export { tradingBot };

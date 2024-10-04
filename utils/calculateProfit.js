@@ -1,16 +1,16 @@
-function calculateProfit(trades) {
+const calculateProfit = (trades) => {
     let profit = 0;
     let totalCost = 0;
-    
-    trades.forEach(trade => {
-        if (trade.action === 'BUY') {
-            totalCost += trade.price * trade.amount; // Track total cost of purchases
-        } else if (trade.action === 'SELL') {
-            profit += trade.price * trade.amount; // Track total revenue from sales
+
+    trades.forEach(({ action, price, amount }) => {
+        if (action === 'BUY') {
+            totalCost += price * amount;
+        } else if (action === 'SELL') {
+            profit += price * amount;
         }
     });
 
-    return profit - totalCost; // Final profit = revenue - cost
-}
+    return profit - totalCost;
+};
 
-module.exports = calculateProfit;
+export default calculateProfit;

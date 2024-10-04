@@ -1,8 +1,8 @@
-const express = require('express');
-const { tradingBot } = require('../controllers/tradeController');
+import express from 'express';
+import { tradingBot } from '../controllers/tradeController.js';
+
 const router = express.Router();
 
-// Route for triggering trading bot
 router.get('/execute', tradingBot);
 
-module.exports = router;
+export default router;
