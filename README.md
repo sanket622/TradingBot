@@ -16,7 +16,7 @@ This backend application simulates a basic trading bot that executes trades base
 
 ### GET `http://localhost:5000/api/trades/execute`
 
-This endpoint triggers the trading bot to evaluate stock prices and execute buy/sell trades based on predefined conditions:
+This endpoint exceutes the trading bot to evaluate stock prices and execute buy/sell trades based on predefined conditions:
 
 - **Buy**: When the stock price drops by 2%.
 - **Sell**: When the stock price rises by 3%.
