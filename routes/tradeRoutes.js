@@ -1,5 +1,5 @@
 import express from 'express';
-import { tradingBot } from '../controllers/tradeController.js';
+import tradingBot from '../controllers/tradeController.js';
 
 const router = express.Router();
 
