@@ -57,4 +57,4 @@ const tradingBot = (req, res) => {
     });
 };
 
-export { tradingBot };
+export default tradingBot ;
