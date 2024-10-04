@@ -23,7 +23,7 @@ const getTradeHistory = () => tradeHistory;
 const getBalance = () => balance;
 
 const updateBalance = (amount) => {
-    balance += amount;
+    balance = balance + amount;
 };
 
 const updatePosition = (stock, amount, action) => {
