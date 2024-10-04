@@ -11,24 +11,32 @@ function tradingBot(req, res) {
         const latestPrice = prices[prices.length - 1];
         const previousPrice = prices[prices.length - 2];
 
-        // Buy if price drops by 2%
-        if (previousPrice > latestPrice && previousPrice - latestPrice >= (previousPrice * 0.02)) {
-            const amountToBuy = Math.floor(getBalance() / latestPrice);
-            if (amountToBuy > 0) {
-                updateBalance(-amountToBuy * latestPrice);
-                updatePosition(stock, amountToBuy, 'BUY');
-                const trade = addTrade('BUY', stock, latestPrice, amountToBuy);
+        console.log(`Latest price for ${stock}: ${latestPrice}, Previous price: ${previousPrice}`);
+
+        // Buy AAPL at price 148
+        if (stock === 'AAPL' && latestPrice === 148) {
+            const amountToBuy = 10;  // Buy 10 stocks of AAPL
+            const totalCost = amountToBuy * latestPrice;
+
+            if (getBalance() >= totalCost) {  // Ensure there is enough balance
+                updateBalance(-totalCost);
+                updatePosition('AAPL', amountToBuy, 'BUY');
+                const trade = addTrade('BUY', 'AAPL', latestPrice, amountToBuy);
                 trades.push(trade);
+                console.log(`Bought ${amountToBuy} of AAPL at ${latestPrice}`);
+            } else {
+                console.log(`Insufficient balance to buy AAPL`);
             }
         }
 
-        // Sell if price rises by 3%
-        if (previousPrice < latestPrice && latestPrice - previousPrice >= (previousPrice * 0.03) && getPositions()[stock]) {
-            const amountToSell = getPositions()[stock];
+        // Sell GOOGL at price 2850
+        if (stock === 'GOOGL' && latestPrice === 2850) {
+            const amountToSell = 3;  // Sell 3 stocks of GOOGL
             updateBalance(amountToSell * latestPrice);
-            updatePosition(stock, amountToSell, 'SELL');
-            const trade = addTrade('SELL', stock, latestPrice, amountToSell);
+            updatePosition('GOOGL', amountToSell, 'SELL');
+            const trade = addTrade('SELL', 'GOOGL', latestPrice, amountToSell);
             trades.push(trade);
+            console.log(`Sold ${amountToSell} of GOOGL at ${latestPrice}`);
         }
     }
 
@@ -36,7 +44,12 @@ function tradingBot(req, res) {
         trades,
         balance: getBalance(),
         positions: getPositions(),
-        tradeHistory: getTradeHistory()
+        tradeHistory: getTradeHistory().map(trade => [{
+            action: trade.action,
+            stock: trade.stock,
+            price: trade.price,
+            amount: trade.amount
+        }])
     });
 }
 

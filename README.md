@@ -20,32 +20,42 @@ This endpoint triggers the trading bot to evaluate stock prices and execute buy/
 #### Response
 ```json
 {
-    "trades": [
-        {
-            "action": "BUY",
-            "stock": "AAPL",
-            "price": 148,
-            "amount": 10
-        },
-        {
-            "action": "SELL",
-            "stock": "GOOGL",
-            "price": 2850,
-            "amount": 3
-        }
-    ],
-    "balance": 9750,
-    "positions": {
-        "AAPL": 10
+  "trades": [
+    {
+      "action": "BUY",
+      "stock": "AAPL",
+      "price": 148,
+      "amount": 10,
+      "timestamp": "2024-10-04T10:17:34.666Z"
     },
-    "tradeHistory": [
-        [
-            {
-                "action": "BUY",
-                "stock": "AAPL",
-                "price": 148,
-                "amount": 10
-            }
-        ]
+    {
+      "action": "SELL",
+      "stock": "GOOGL",
+      "price": 2850,
+      "amount": 3,
+      "timestamp": "2024-10-04T10:17:34.667Z"
+    }
+  ],
+  "balance": 17070,
+  "positions": {
+    "AAPL": 10
+  },
+  "tradeHistory": [
+    [
+      {
+        "action": "BUY",
+        "stock": "AAPL",
+        "price": 148,
+        "amount": 10
+      }
+    ],
+    [
+      {
+        "action": "SELL",
+        "stock": "GOOGL",
+        "price": 2850,
+        "amount": 3
+      }
     ]
+  ]
 }
